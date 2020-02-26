@@ -1,0 +1,6 @@
+{
+  "env": {
+    "NAME": "@name",
+    "PASSWORD": "@password"
+  }
+}

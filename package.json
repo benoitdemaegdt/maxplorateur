@@ -1,0 +1,26 @@
+{
+  "name": "maxplorateur",
+  "version": "1.0.0",
+  "description": "serverless maxplorateur api",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "basic-auth": "^2.0.1",
+    "lodash": "^4.17.15",
+    "moment-timezone": "^0.5.28"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benoitdemaegdt/maxplorateur.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benoitdemaegdt/maxplorateur/issues"
+  },
+  "homepage": "https://github.com/benoitdemaegdt/maxplorateur#readme"
+}
