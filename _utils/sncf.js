@@ -15,6 +15,8 @@ export async function isTgvmaxAvailable(origin, destination, fromTime, toTime, t
 async function getTgvmaxHours(origin, destination, fromTime, toTime, tgvmaxNumber) {
   const results = [];
   let keepSearching = true;
+  let departureMinTime = moment(fromTime).tz('Europe/Paris').format('YYYY-MM-DD[T]HH:mm:ss');
+  const departureMaxTime = moment(toTime).tz('Europe/Paris').format('YYYY-MM-DD[T]HH:mm:ss');
 
   try {
     while (keepSearching) {
@@ -45,7 +47,7 @@ async function getTgvmaxHours(origin, destination, fromTime, toTime, tgvmaxNumbe
             'TRAIN_AND_BUS',
             'DIRECT_TRAVEL',
           ],
-          outwardDate: moment(fromTime).format('YYYY-MM-DD[T]HH:mm:ss.SSSZ'),
+          outwardDate: moment(departureMinTime).format('YYYY-MM-DD[T]HH:mm:ss.SSSZ'),
           passengers: [
             {
               age: 25, // random
@@ -89,13 +91,13 @@ async function getTgvmaxHours(origin, destination, fromTime, toTime, tgvmaxNumbe
       .tz('Europe/Paris').format('YYYY-MM-DD[T]HH:mm:ss');
 
       if (
-        moment(toTime).isSameOrBefore(pageLastTripDeparture)
-        || moment(fromTime).isSame(pageLastTripDeparture)
+        moment(departureMaxTime).isSameOrBefore(pageLastTripDeparture)
+        || moment(departureMinTime).isSame(pageLastTripDeparture)
       ) {
         keepSearching = false;
       }
 
-      fromTime = pageLastTripDeparture;
+      departureMinTime = pageLastTripDeparture;
     }
   } catch (error) {
     const status = get(error, 'response.status', '');
@@ -113,7 +115,7 @@ async function getTgvmaxHours(origin, destination, fromTime, toTime, tgvmaxNumbe
 
     return isNil(item.unsellableReason)
       && item.price.value === 0
-      && moment(departureDate).isSameOrBefore(toTime);
+      && moment(departureDate).isSameOrBefore(departureMaxTime);
   });
 
   return map(tgvmaxTravels, (tgvmaxTravel) => {
