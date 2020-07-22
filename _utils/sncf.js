@@ -21,7 +21,7 @@ async function getTgvmaxHours(origin, destination, fromTime, toTime, tgvmaxNumbe
   try {
     while (keepSearching) {
       const config = {
-        url: 'https://wshoraires.oui.sncf/m740/vmd/maq/v3/proposals/train',
+        url: 'https://wshoraires.oui.sncf/m750/vmd/maq/v3/proposals/train',
         method: 'POST',
         headers: {
           Accept: 'application/json',
